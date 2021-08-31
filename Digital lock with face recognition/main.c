@@ -44,7 +44,7 @@ void register_settings_for_UART()
 
 void main(void)
 {
-    WDTCTL = WDTPW + WDTHOLD;       //! Stop Watchdog (Not recommended for code in production and devices working in field)
+    WDTCTL = WDTPW + WDTHOLD;       //! Stop Watchdog
 
     P2DIR &= ~(wakeup|enter);       //SW as input
     P2REN |= wakeup|enter;          //Internal resistor enable
@@ -67,7 +67,7 @@ void main(void)
 
     register_settings_for_UART();
     while(1){
-        __bis_SR_register(LPM0_bits +GIE);
+        __bis_SR_register(LPM0_bits +GIE);      //CPU is disabled,Supply current(at 1 MHz) : 56uA , Interrupt enable
     }
 }
 
@@ -77,7 +77,7 @@ __interrupt void USCI0RX_ISR(void)
     P1OUT ^= BIT7;
     __delay_cycles(30000);
     face_flag = 1;
-    IFG2 &= ~UCA0RXIFG;
+    IFG2 &= ~UCA0RXIFG;                  //clear interrupt bit
 }
 
 #pragma vector = PORT2_VECTOR
@@ -140,4 +140,3 @@ if(enter_your_password==1){
     }
   }
 }
-
