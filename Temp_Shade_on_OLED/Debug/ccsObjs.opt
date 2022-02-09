@@ -1,0 +1,1 @@
+"./Analog_read.obj" "./SerialPrint.obj" "./Temp_Shade_on_OLED.obj" "./i2c.obj" "./ssd1306.obj" "../lnk_msp430g2553.cmd" -llibc.a 
